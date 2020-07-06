@@ -1,0 +1,5 @@
+<ul ngbNav [(activeId)]="activeId" class="nav-tabs">
+  <li *ngFor="let tab of tabs" [ngbNavItem]="tab.id">
+    <a ngbNavLink (click)="onTabClick()">{{tab.type}}</a>
+  </li>
+</ul>

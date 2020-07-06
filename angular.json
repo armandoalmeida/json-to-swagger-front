@@ -28,6 +28,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/scss/bootstrap.scss",
               "src/styles.sass"
             ],
             "scripts": []
@@ -123,6 +124,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "json-to-swagger-front"
+    }
+  },
+  "defaultProject": "json-to-swagger-front",
+  "cli": {
+    "analytics": false
+  }
 }
