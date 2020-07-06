@@ -35,9 +35,10 @@ export class AppComponent implements OnInit {
 
     this.yamlFile.updateContent('converting...');
     this.activeCodeEditorTabById(this.yamlFile.id);
-    ;
 
-    this.http.post('http://us-central1-json-to-swagger.cloudfunctions.net/json-to-swagger-yaml',
+    let url = 'http://us-central1-json-to-swagger.cloudfunctions.net/json-to-swagger-yaml';
+    // let url = 'http://127.0.0.1:5000/';
+    this.http.post(url,
       this.jsonFile.codeModel.value, {
         headers: {'Content-type': 'application/json'},
         responseType: "text"
