@@ -2,6 +2,7 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {CodeEditorModel} from "./model/code-editor-model";
 import {CodeEditorType} from "./model/code-editor-type";
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -36,11 +37,9 @@ export class AppComponent implements OnInit {
     this.yamlFile.updateContent('converting...');
     this.activeCodeEditorTabById(this.yamlFile.id);
 
-    let url = 'https://us-central1-json-to-swagger.cloudfunctions.net/json-to-swagger-yaml';
-    // let url = 'http://127.0.0.1:5000/';
-    this.http.post(url,
+    this.http.post(environment.jsonToSwaggerApi,
       this.jsonFile.codeModel.value, {
-        headers: {'Content-type': 'application/json'},
+        headers: {'Content-Type': 'application/json'},
         responseType: "text"
       }).subscribe(data => {
       console.log(data);
