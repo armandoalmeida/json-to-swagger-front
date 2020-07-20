@@ -1,14 +1,16 @@
 <div class="container-fluid">
   <app-tab [tabs]="files"
            [activeId]="activeId"
-           (selectTab)="activeCodeEditorTabById($event)"></app-tab>
+           (selectTab)="activeCodeEditorTabById($event)"
+  ></app-tab>
 
-  <ngs-code-editor *ngIf="files.length > 0"
-                   [theme]="'vs-dark'"
-                   [codeModel]="codeEditorModel.codeModel"
-                   [options]="codeEditorModel.options"
-  >
-  </ngs-code-editor>
+  <app-code-editor *ngIf="files.length > 0"
+                   [codeEditorModel]="codeEditorModel"
+  ></app-code-editor>
+
+<!--  <div class="row">-->
+<!--    <pre><code [highlight]="codeEditorModel.codeModel.value"></code></pre>-->
+<!--  </div>-->
 
   <button class="btn btn-convert" (click)="onConvert()">Convert JSON to Swagger Yaml
     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-lightning-fill" fill="currentColor"

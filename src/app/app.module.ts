@@ -8,6 +8,7 @@ import {CodeEditorModule} from "@ngstack/code-editor";
 import { TabComponent } from './tab/tab.component';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {HttpClientModule} from "@angular/common/http";
+import {HighlightModule} from "ngx-highlightjs";
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {HttpClientModule} from "@angular/common/http";
     AppRoutingModule,
     HttpClientModule,
     NgbModule,
-    CodeEditorModule.forChild()
+    CodeEditorModule.forChild(),
+    HighlightModule
   ],
   providers: [],
   bootstrap: [AppComponent]

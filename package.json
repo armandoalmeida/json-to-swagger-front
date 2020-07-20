@@ -26,6 +26,7 @@
     "@ngstack/code-editor": "^1.0.0",
     "bootstrap": "^4.5.0",
     "express": "^4.17.1",
+    "ngx-highlightjs": "^4.1.0-beta",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "uuid": "^8.2.0",

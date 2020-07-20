@@ -12,14 +12,6 @@ export class CodeEditorComponent implements OnInit {
   theme = 'vs-dark';
   @Input() codeEditorModel: CodeEditorModel;
 
-  options = {
-    contextmenu: true,
-    minimap: {
-      enabled: true,
-    },
-    wordWrap: true
-  };
-
   ngOnInit(): void {
   }
 

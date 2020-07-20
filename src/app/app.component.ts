@@ -2,7 +2,7 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {CodeEditorModel} from "./model/code-editor-model";
 import {CodeEditorType} from "./model/code-editor-type";
-import { environment } from '../environments/environment';
+import {environment} from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -42,7 +42,6 @@ export class AppComponent implements OnInit {
         headers: {'Content-Type': 'application/json'},
         responseType: "text"
       }).subscribe(data => {
-      console.log(data);
       this.yamlFile.updateContent(data as string)
     });
   }

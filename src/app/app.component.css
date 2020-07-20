@@ -22,4 +22,12 @@
   height: 96vh !important;
 }
 
+pre, code {
+  width: 100%;
+  height: 95vh;
+}
+pre.hljs, code.hljs {
+  background: #1E1E1E;
+}
+
 /*# sourceMappingURL=app.component.css.map */

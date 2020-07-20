@@ -29,6 +29,7 @@
             ],
             "styles": [
               "node_modules/bootstrap/scss/bootstrap.scss",
+              "node_modules/highlight.js/styles/dark.css",
               "src/styles.sass"
             ],
             "scripts": []
