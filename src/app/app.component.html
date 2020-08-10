@@ -4,13 +4,22 @@
            (selectTab)="activeCodeEditorTabById($event)"
   ></app-tab>
 
-  <app-code-editor *ngIf="files.length > 0"
-                   [codeEditorModel]="codeEditorModel"
-  ></app-code-editor>
+  <!--  <app-code-editor *ngIf="files.length > 0"-->
+  <!--                   [codeEditorModel]="codeEditorModel"-->
+  <!--  ></app-code-editor>-->
 
-<!--  <div class="row">-->
-<!--    <pre><code [highlight]="codeEditorModel.codeModel.value"></code></pre>-->
-<!--  </div>-->
+  <ngx-monaco-editor *ngIf="currentCodeModel"
+                     [options]="currentCodeModel.options"
+                     (onInit)="onInitEditor($event)"
+                     [(ngModel)]="currentCodeModel.editorContent"
+  ></ngx-monaco-editor>
+
+<!--  [(ngModel)]="codeEditorModel.model.getValue()"-->
+
+
+  <!--  <div class="row">-->
+  <!--    <pre><code [highlight]="codeEditorModel.codeModel.value"></code></pre>-->
+  <!--  </div>-->
 
   <button class="btn btn-convert" (click)="onConvert()">Convert JSON to Swagger Yaml
     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-lightning-fill" fill="currentColor"

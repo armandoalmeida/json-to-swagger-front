@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {CodeEditorModel} from "./model/code-editor-model";
 import {CodeEditorType} from "./model/code-editor-type";
 import {environment} from '../environments/environment';
+import ICodeEditor = monaco.editor.ICodeEditor;
 
 @Component({
   selector: 'app-root',
@@ -13,8 +14,9 @@ import {environment} from '../environments/environment';
 export class AppComponent implements OnInit {
   title = 'json-to-swagger-front';
   files: CodeEditorModel[] = []
-  codeEditorModel: CodeEditorModel;
   activeId: string;
+  // editorInstance: ICodeEditor;
+  currentCodeModel: CodeEditorModel;
   jsonFile: CodeEditorModel;
   yamlFile: CodeEditorModel;
 
@@ -30,15 +32,15 @@ export class AppComponent implements OnInit {
 
   onConvert() {
     if (!this.yamlFile) {
-      this.yamlFile = new CodeEditorModel(CodeEditorType.YAML, '');
+      this.yamlFile = new CodeEditorModel(CodeEditorType.YAML, 'converting...');
       this.addCodeEditorTab(this.yamlFile);
+    } else {
+      this.activeCodeEditorTabById(this.yamlFile.id);
+      this.yamlFile.updateContent('converting...');
     }
 
-    this.yamlFile.updateContent('converting...');
-    this.activeCodeEditorTabById(this.yamlFile.id);
-
     this.http.post(environment.jsonToSwaggerApi,
-      this.jsonFile.codeModel.value, {
+      this.jsonFile.editorContent, {
         headers: {'Content-Type': 'application/json'},
         responseType: "text"
       }).subscribe(data => {
@@ -46,20 +48,52 @@ export class AppComponent implements OnInit {
     });
   }
 
-  addCodeEditorTab(yamlModel: CodeEditorModel) {
-    this.files.push(yamlModel);
-    this.activeCodeEditorTabById(yamlModel.id);
+  addCodeEditorTab(model: CodeEditorModel) {
+    this.files.push(model);
+    this.activeCodeEditorTabById(model.id);
   }
 
   activeCodeEditorTabById(fileId: string) {
+    let model = this.getCodeModelById(fileId);
+    if (model) {
+      this.activeId = model.id;
+      this.currentCodeModel = model;
+    }
+  }
+
+  getCodeModelById(fileId: string): CodeEditorModel {
     for (let i = 0; i < this.files.length; i++) {
       let file = this.files[i];
       if (file.id === fileId) {
-        this.activeId = file.id;
-        this.codeEditorModel = file;
-        break;
+        return file;
       }
     }
   }
 
+  onInitEditor(editor: ICodeEditor) {
+    console.log(editor);
+
+    if (this.currentCodeModel.viewState) {
+      editor.setValue(this.currentCodeModel.editorContent);
+      // editor.setModel(this.currentCodeModel.editorModel);
+      editor.restoreViewState(this.currentCodeModel.viewState);
+    }
+
+    editor.onDidBlurEditorText(() => {
+      this.updateViewState(editor);
+      console.log('onDidBlurEditorText', editor.getModel());
+    })
+
+  }
+
+  updateViewState(editor: ICodeEditor) {
+    if (editor) {
+      if (this.currentCodeModel.type == CodeEditorType.JSON)
+        this.jsonFile.updateViewState(editor.saveViewState(), editor.getModel())
+      // this.jsonFile.updateEditorModel(editor.getModel());
+      if (this.currentCodeModel.type == CodeEditorType.YAML)
+        this.yamlFile.updateViewState(editor.saveViewState(), editor.getModel())
+      // this.yamlFile.updateEditorModel(editor.getModel());
+    }
+  }
 }

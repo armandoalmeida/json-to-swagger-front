@@ -9,6 +9,9 @@ import { TabComponent } from './tab/tab.component';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {HttpClientModule} from "@angular/common/http";
 import {HighlightModule} from "ngx-highlightjs";
+import { MonacoEditorModule } from 'ngx-monaco-editor';
+import {FormsModule} from "@angular/forms";
+
 
 @NgModule({
   declarations: [
@@ -20,8 +23,10 @@ import {HighlightModule} from "ngx-highlightjs";
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
     NgbModule,
     CodeEditorModule.forChild(),
+    MonacoEditorModule.forRoot(),
     HighlightModule
   ],
   providers: [],
